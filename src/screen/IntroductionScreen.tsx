@@ -1,10 +1,12 @@
 import React, { useRef } from "react";
-import { Animated, FlatList, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import { Animated, FlatList, SafeAreaView, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { LanguageState, setLanguage } from "../redux/reducer/LanguageReducer";
+import { useNavigation } from "@react-navigation/native";
 
 import { getFont, getText } from "../constant/screen/IntroductionScreenText";
 import Style from "../style/screen/IntroductionScreenStyle";
+
 import Button100 from "../component/Button100";
 import DashDot1 from "../asset/svg/DashDot1";
 import DashDot2 from "../asset/svg/DashDot2";
@@ -13,7 +15,6 @@ import IntroHeroBackground1 from "../asset/svg/IntroHeroBackground1";
 import IntroHeroBackground2 from "../asset/svg/IntroHeroBackground2";
 import IntroHeroBackground3 from "../asset/svg/IntroHeroBackground3";
 import Button200 from "../component/Button200";
-import { useNavigation } from "@react-navigation/native";
 
 interface RenderProps {
   id: string;
@@ -29,8 +30,14 @@ interface RenderProps {
 const IntroductionScreen = () => {
   const language = useSelector((state: { language: LanguageState }) => state.language.language);
   const dispatch = useDispatch();
-
+  const flatListRef = useRef<FlatList<RenderProps> | null>(null);
+  const itemOpacity = useRef(new Animated.Value(1)).current;
+  const navigation = useNavigation<any>();
   const style = Style(getFont as any);
+
+  const changeLanguage = (newLanguage: string) => {
+    dispatch(setLanguage(newLanguage));
+  };
 
   const renderData = [
     {
@@ -58,14 +65,6 @@ const IntroductionScreen = () => {
       secondaryButton: getText('signUpButtonText'),
     },
   ]
-
-  const flatListRef = useRef<FlatList<RenderProps> | null>(null);
-  const itemOpacity = useRef(new Animated.Value(1)).current;
-  const navigation = useNavigation<any>();
-
-  const changeLanguage = (newLanguage: string) => {
-    dispatch(setLanguage(newLanguage));
-  };
 
   const IntroductionScreenFlatlist = ({ item }: { item: RenderProps }) => {
 
@@ -109,6 +108,7 @@ const IntroductionScreen = () => {
 
 
       } else {
+        changeLanguage('english');
         // navigation.navigate('SignInScreen');
       }
     };
@@ -130,7 +130,7 @@ const IntroductionScreen = () => {
           }).start();
         });
       } else {
-        // navigation.navigate('IntroductionCreateAccountScreen');
+        navigation.navigate('SignUpIndexScreen');
       }
     };
 
@@ -150,7 +150,7 @@ const IntroductionScreen = () => {
             <Text style={style.slideDescriptionText}>{item.slideDescription}</Text>
           </View>
           <View style={style.primaryButtonContainer}>
-            <Button100 title={item.primaryButton} onPress={handlePrimaryButtonClick}/>
+            <Button100 title={item.primaryButton} onPress={handlePrimaryButtonClick} />
           </View>
           <View style={style.secondaryButtonContainer}>
             <Button200 title={item.secondaryButton} onPress={handleSecondaryButton} />

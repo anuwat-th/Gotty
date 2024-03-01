@@ -5,7 +5,7 @@ export type LanguageState = {
 };
 
 const initialState = {
-  language: 'english',
+  language: 'thai',
 } as LanguageState;
 
 type  LanguageChangePayload = {

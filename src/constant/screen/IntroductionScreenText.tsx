@@ -36,7 +36,7 @@ export const translations = {
     },
     signInButtonText: {
         english: `Sign In`,
-        th: `เข้าสู่ระบบ`,
+        thai: `เข้าสู่ระบบ`,
     },
     signUpButtonText: {
         english: `I'm new, Sign Up`,
@@ -47,7 +47,7 @@ export const translations = {
 export const fonts = {
     sildeTitleText: {
         english: 'SatoshiMedium',
-        thai: 'IBMPlexSansThaiSemiBold',
+        thai: 'IBMPlexSansThaiMedium',
     },
     slideDescriptionText: {
         english: 'SatoshiRegular',
@@ -57,7 +57,6 @@ export const fonts = {
 
 
 export function getText<T extends keyof typeof translations>(textTitle: T): string {
-
     const language = useSelector((state: { language: LanguageState }) => state.language.language);
     return (translations[textTitle] as Record<string, string>)[language];
 }

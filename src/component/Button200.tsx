@@ -1,8 +1,9 @@
-
 import React, { } from 'react';
 import { Text, TouchableOpacity, TouchableOpacityProps } from 'react-native';
+
 import { Style } from '../style/component/Button200Style';
 import { getFont } from '../constant/component/Button200Text';
+
 interface ButtonProps extends TouchableOpacityProps {
     title: string;
 }

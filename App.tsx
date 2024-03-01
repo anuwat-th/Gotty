@@ -43,6 +43,7 @@ export default function App() {
     if (!appIsReady) {
         return null;
     }
+    
     onLayoutRootView();
     return (
         <ApplicationStack></ApplicationStack>
